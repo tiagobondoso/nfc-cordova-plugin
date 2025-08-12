@@ -11,8 +11,8 @@
     <license>MIT</license>
     <keywords>nfc, NFC, NDEF</keywords>
 
-    <js-module src="www/phonegap-nfc.js" name="NFC">
-        <runs />
+    <js-module src="www/phonegap-nfc.js" name="phonegap-nfc">
+        <clobbers target="cordova.plugins.NFCCordovaPlugin"/>
     </js-module>
 
     <platform name="android">
