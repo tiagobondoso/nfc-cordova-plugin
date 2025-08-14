@@ -202,6 +202,12 @@
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+- (void)ping:(CDVInvokedUrlCommand*)command {
+    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"pong"];
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+}
+
+
 #pragma mark - NFCNDEFReaderSessionDelegate
 
 // iOS 11 & 12

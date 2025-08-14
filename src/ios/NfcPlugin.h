@@ -35,6 +35,9 @@
 // Internal implementation
 - (void)channel:(CDVInvokedUrlCommand *)command;
 
+// Test method to check plugin bridge
+- (void)ping:(CDVInvokedUrlCommand *)command;
+
 @end
 
 #endif

@@ -78,6 +78,8 @@ public class NfcPlugin extends CordovaPlugin {
     private static final String STATUS_NFC_DISABLED = "NFC_DISABLED";
     private static final String STATUS_NDEF_PUSH_DISABLED = "NDEF_PUSH_DISABLED";
 
+    private static final String PING = "ping";
+
     private static final String TAG = "NfcPlugin";
     private final List<IntentFilter> intentFilters = new ArrayList<>();
     private final ArrayList<String[]> techLists = new ArrayList<>();
@@ -145,6 +147,10 @@ public class NfcPlugin extends CordovaPlugin {
         createPendingIntent();
 
         switch (action) {
+            case PING:
+                callbackContext.success("pong");
+                break;
+                
             case READER_MODE:
                 int flags = data.getInt(0);
                 readerMode(flags, callbackContext);

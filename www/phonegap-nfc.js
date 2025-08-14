@@ -1,6 +1,12 @@
 /*jshint  bitwise: false, camelcase: false, quotmark: false, unused: vars, esversion: 6, browser: true*/
 /*global cordova, console, require */
 
+
+
+
+
+
+
 function handleNfcFromIntentFilter() {
 
     // This was historically done in cordova.addConstructor but broke with PhoneGap-2.2.0.
@@ -909,3 +915,36 @@ require('cordova/channel').onCordovaReady.subscribe(function() {
     }
   }
 });
+
+
+// === EXPORT para cordova.plugins.NFCCordovaPlugin (clobber do plugin.xml) ===
+var exec = require('cordova/exec');
+
+var NFCCordovaPlugin = {
+  // sanity check rápido
+  isLoaded: function () {
+    return !!(window.nfc && window.ndef);
+  },
+
+  // ping -> deve devolver "pong" se o nativo estiver ligado
+  ping: function (success, error) {
+    exec(success, error, 'NfcPlugin', 'ping', []);
+  },
+
+  // proxies úteis para manteres compatibilidade com o resto do teu código
+  addNdefListener: function (callback, win, fail) {
+    return nfc.addNdefListener(callback, win, fail);
+  },
+  write: function (ndefMessage, win, fail, options) {
+    return nfc.write(ndefMessage, win, fail, options);
+  },
+  enabled: function (win, fail) {
+    return nfc.enabled(win, fail);
+  },
+  // …se precisares, vais expondo mais wrappers dos métodos já definidos em "nfc"
+};
+
+// Isto faz com que, por causa do <clobbers target="cordova.plugins.NFCCordovaPlugin"/>,
+ // o objeto fique acessível como cordova.plugins.NFCCordovaPlugin
+module.exports = NFCCordovaPlugin;
+
